@@ -1,0 +1,158 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f6fb;
+  color: #1f2937;
+}
+
+.navbar {
+  background: #0f172a;
+  color: white;
+  padding: 16px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar h2 {
+  margin: 0;
+}
+
+.navbar a,
+.navbar button {
+  color: white;
+  margin-left: 15px;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.navbar a:hover,
+.navbar button:hover {
+  color: #38bdf8;
+}
+
+.container {
+  padding: 30px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  max-width: 480px;
+  margin: 0 auto 25px auto;
+}
+
+.full {
+  max-width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+h1,
+h2,
+h3 {
+  color: #0f172a;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0 14px 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  padding: 11px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+.message {
+  background: #e0f2fe;
+  color: #075985;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.captcha,
+.pending,
+.mfa-box {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px 0;
+  border: 1px solid #e2e8f0;
+}
+
+.qr {
+  width: 220px;
+  display: block;
+  margin: 15px auto;
+}
+
+code {
+  display: block;
+  word-break: break-all;
+  background: #0f172a;
+  color: #22c55e;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  margin-top: 15px;
+}
+
+th {
+  background: #0f172a;
+  color: white;
+}
+
+th,
+td {
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .navbar {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

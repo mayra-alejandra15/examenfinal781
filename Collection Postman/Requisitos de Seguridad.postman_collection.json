@@ -1,0 +1,708 @@
+{
+  "info": {
+    "_postman_id": "954e29bc-aeae-4acf-9780-ac4c98c271d7",
+    "name": "Requisitos de Seguridad",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45445019",
+    "_collection_link": "https://go.postman.co/collection/45445019-954e29bc-aeae-4acf-9780-ac4c98c271d7?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Captcha",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"jhon@gmail.com\",\r\n  \"code\": \"013864\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/captcha",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "captcha"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS1 usuario 1",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"prueba@gmail.com\",\r\n    \"password\": \"Prueba@123\",\r\n    \"code\": \"240576\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/mfa/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "mfa",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS1 usuario 2",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"jhon@gmail.com\",\r\n    \"password\": \"Jhon@123456\",\r\n    \"code\": \"294542\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/mfa/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "mfa",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS1 perfil2",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_1ara}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/me",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS1  url incorrecta",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0pz3}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/wallet/e7bb7355-ce56-4fcb-9bf2-f89a6a610ca3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "wallet",
+            "e7bb7355-ce56-4fcb-9bf2-f89a6a610ca3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS2 listado sin permiso",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_1ara}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/admin/users",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS3 datos sensibles",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_1ara}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"fullName\": \"Prueba Seguridad\",\r\n  \"ci\": \"9999999\",\r\n  \"email\": \"seguridad@test.com\",\r\n  \"phone\": \"79999999\",\r\n  \"password\": \"Seguridad@12345\",\r\n  \"captchaId\": \"aa8e1c9b-7304-457f-b7a4-191f27eac11e\",\r\n  \"captchaAnswer\": \"12\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS4 injection",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"jhon@gmail.com\",\r\n  \"password\": \"Jhon@123456\",\r\n  \"role\": \"ADMIN\",\r\n  \"balance\": 999999,\r\n  \"isBlocked\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/mfa/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "mfa",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS5 tranferencia1",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{supabase_service_role_api_key_0afm}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "11111111-3333-4444-5555-22222",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"destinatario\": \"prueba@gmail.com\",\r\n  \"monto\": 50,\r\n  \"descripcion\": \"Pago de prueba\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/transfers",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "transfers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS5 tranferencia2",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0afm}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "11111111-3333-4444-5555-22222",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"destinatario\": \"admin@securewallet.com\",\r\n  \"monto\": 50,\r\n  \"descripcion\": \"Pago de prueba\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/transfers",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "transfers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS5 confirmado 1",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{supabase_service_role_api_key_0ui8}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "11111111-3333-4444-5555-7777777",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/transfers/19788e22-96cb-4261-bbb5-e503b0a44fdd/confirm",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "transfers",
+            "19788e22-96cb-4261-bbb5-e503b0a44fdd",
+            "confirm"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS6 cabeceras",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/captcha",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "captcha"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS7  refresh actual",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"refreshToken\": \"93f9f058-e434-4332-ba8f-5a6c55741239\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/refresh",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "refresh"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS7 refresh expirado",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"refreshToken\": \"3bf9ea43-8a7f-41ce-b22c-8057f2f24f53\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/refresh",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "refresh"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS8 login>5",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"jhon@gmail.com\",\r\n    \"password\": \"Jhon@123\",\r\n    \"code\": \"870532\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/mfa/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "mfa",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS8 tranferencia>10",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_1943}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "11111111-3333-4444-5555-88",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"destinatario\": \"admin@securewallet.com\",\r\n  \"monto\": 50,\r\n  \"descripcion\": \"Pago de prueba\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/transfers",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "transfers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS9 login admin",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"admin@securewallet.com\",\r\n    \"password\": \"Admin@12345\",\r\n    \"code\": \"862783\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/mfa/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "mfa",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS9 audi-logs",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_12xi}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/admin/audit-logs",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "audit-logs"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RS10 token",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/admin/audit-logs",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "audit-logs"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "auth_secret_1ara",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0afm",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_0afm",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_0ui8",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_1943",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_12xi",
+      "secret": true
+    }
+  ]
+}

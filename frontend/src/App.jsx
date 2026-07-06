@@ -98,6 +98,7 @@ function Login() {
     try {
       const res = await api.post("/auth/mfa/login", {
         email: mfaEmail,
+        password: form.password,
         code: mfaCode,
       });
 

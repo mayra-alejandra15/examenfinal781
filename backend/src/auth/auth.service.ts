@@ -38,7 +38,7 @@ export class AuthService {
     private readonly refreshRepo: Repository<RefreshToken>,
 
     private readonly jwtService: JwtService,
-  ) {}
+  ) { }
 
   generateCaptcha() {
     const a = Math.floor(Math.random() * 9) + 1;
@@ -327,6 +327,35 @@ export class AuthService {
       throw new BadRequestException('Credenciales inválidas');
     }
 
+    if (user.isBlocked && user.blockedUntil && user.blockedUntil > new Date()) {
+      throw new BadRequestException('Cuenta bloqueada temporalmente');
+    }
+
+    const passwordOk = await bcrypt.compare(dto.password, user.passwordHash);
+
+    if (!passwordOk) {
+      user.failedLoginAttempts += 1;
+
+      if (user.failedLoginAttempts >= 5) {
+        user.isBlocked = true;
+        user.blockedUntil = new Date(Date.now() + 15 * 60 * 1000);
+      }
+
+      await this.userRepo.save(user);
+
+      await this.auditRepo.save({
+        action: 'MFA_LOGIN_PASSWORD_FAILED',
+        ip: req.ip,
+        userAgent: req.headers['user-agent'],
+        userId: user.id,
+        metadata: {
+          email: user.email,
+        },
+      });
+
+      throw new BadRequestException('Credenciales inválidas');
+    }
+
     if (!user.mfaSecret) {
       throw new BadRequestException('MFA no fue inicializado para este usuario');
     }
@@ -352,10 +381,15 @@ export class AuthService {
       throw new BadRequestException('Código MFA inválido');
     }
 
+    user.failedLoginAttempts = 0;
+    user.isBlocked = false;
+    user.blockedUntil = null;
+
     if (!user.mfaEnabled) {
       user.mfaEnabled = true;
-      await this.userRepo.save(user);
     }
+
+    await this.userRepo.save(user);
 
     const accessToken = this.generateAccessToken(user);
     const refreshToken = await this.createRefreshToken(user);

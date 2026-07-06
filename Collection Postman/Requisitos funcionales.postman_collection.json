@@ -1,0 +1,647 @@
+{
+  "info": {
+    "_postman_id": "2a571dca-23ba-4f3c-a439-1201dbbe6160",
+    "name": "Requisitos funcionales",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45445019",
+    "_collection_link": "https://go.postman.co/collection/45445019-2a571dca-23ba-4f3c-a439-1201dbbe6160?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Captcha",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"jhon@gmail.com\",\r\n  \"code\": \"013864\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/captcha",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "captcha"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RF1 registro ususario",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"fullName\": \"Usuario Prueba\",\r\n  \"ci\": \"123459765\",\r\n  \"email\": \"prueba@gmail.com\",\r\n  \"phone\": \"70123452\",\r\n  \"password\": \"Prueba@123\",\r\n  \"captchaId\": \"4f3e4234-94bc-4097-a511-4a020df9cc1b\",\r\n  \"captchaAnswer\": \"9\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RF2 login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"prueba@gmail.com\",\r\n    \"password\": \"Prueba@123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RF3 Login MFA",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"prueba@gmail.com\",\r\n  \"password\": \"Prueba@123\",\r\n  \"code\": \"242485\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/mfa/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "mfa",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RF03 MFA verify",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0pz3}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"code\": \"291470\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/mfa/verify",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "mfa",
+            "verify"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RF4 consulta de saldo",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0pz3}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/me",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RF5 recarga de saldo",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0pz3}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"amount\": 1000\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/wallet/topup",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "wallet",
+            "topup"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RF6 transferencia de saldo",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0pz3}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "11111111-3333-4444-5555-888888888",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"destinatario\": \"admin@securewallet.com\",\r\n  \"monto\": 50,\r\n  \"descripcion\": \"Pago de prueba\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/transfers",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "transfers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RF7 confirmar transferencia",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0pz3}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "11111111-3333-4444-5555-888888888",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/transfers/ffa3ece8-a835-4363-8f33-fa4ceaafa5dd/confirm",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "transfers",
+            "ffa3ece8-a835-4363-8f33-fa4ceaafa5dd",
+            "confirm"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RF8 confirmar MFA>500",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_0dwr}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "11111111-3333-4444-5555-888888888",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"totpCode\": \"164849\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/transfers/5b5bdeff-1e09-413d-8d7a-6e22c1541b01/confirm",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "transfers",
+            "5b5bdeff-1e09-413d-8d7a-6e22c1541b01",
+            "confirm"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RF08 transferencia de saldo >500",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0dwr}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "11111111-3333-4444-5555-7777777",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"destinatario\": \"admin@securewallet.com\",\r\n  \"monto\": 550,\r\n  \"descripcion\": \"Pago de prueba\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/transfers",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "transfers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RF9 login admin",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"admin@securewallet.com\",\r\n  \"password\": \"Admin@12345\",\r\n  \"code\": \"600009\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/mfa/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "mfa",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RF9 listar usuarios",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_0nwr}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/admin/users",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RF9 bloqueo usuarios",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0nwr}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"blocked\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/admin/users/e7bb7355-ce56-4fcb-9bf2-f89a6a610ca3/block",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "users",
+            "e7bb7355-ce56-4fcb-9bf2-f89a6a610ca3",
+            "block"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RF9 listar audi-logs",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_0nwr}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/admin/audit-logs",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "audit-logs"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "R10 cerrar sesion",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0nwr}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"refreshToken\": \"f167acb4-c4a8-474a-b714-7bee94ed2419\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/auth/logout",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "logout"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "json_web_token_0pz3",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0dwr",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_0dwr",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_0nwr",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0nwr",
+      "secret": true
+    }
+  ]
+}

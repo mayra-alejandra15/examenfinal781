@@ -6,6 +6,10 @@ export class MfaLoginDto {
 
   @IsString()
   @IsNotEmpty()
+  password: string;
+
+  @IsString()
+  @IsNotEmpty()
   @Length(6, 6)
   code: string;
 }
